@@ -18,12 +18,44 @@ namespace personnel_access_control.DbContexts
             modelBuilder.Entity<Employee>().HasData(
                 new Employee
                 {
-                   EmployeeId = 1,
-                   FirstName = "Lucas",
-                   LastName = "Rodriguez",
-                   Gender = enums.Genders.Male,
+                    EmployeeId = 1,
+                    FirstName = "Lucas",
+                    LastName = "Rodriguez",
+                    Gender = enums.Genders.Male,
+                },
+                new Employee
+                {
+                    EmployeeId = 2,
+                    FirstName = "Delfina",
+                    LastName = "Torres",
+                    Gender = enums.Genders.Female,
+                },
+                new Employee
+                {
+                    EmployeeId = 3,
+                    FirstName = "Bianca",
+                    LastName = "Perez",
+                    Gender = enums.Genders.Female,
                 }
             );
+
+            modelBuilder.Entity<CompanyBranch>().HasData(
+                new CompanyBranch
+                {
+                    CompanyBranchId = 1,
+                    Location = "Argentina",
+                },
+                new CompanyBranch
+                {
+                    CompanyBranchId = 2,
+                    Location = "Brasil",
+                },
+                new CompanyBranch
+                {
+                    CompanyBranchId = 3,
+                    Location = "España",
+                }
+           );
 
             base.OnModelCreating(modelBuilder);
 
