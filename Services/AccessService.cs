@@ -16,11 +16,32 @@ namespace personnel_access_control.Services
             _accessRepository = accessRepository;
         }
 
-        public bool AccessRegister(RegisterAccessDto AccesData)
+        public bool AccessRegister(RegisterAccessDto registerAccessDto)
         {
-            var accessData = _mapper.Map<Access>(AccesData);
-            var SuccessfulReg = _accessRepository.AccessRegister(accessData);
-            return SuccessfulReg;
+            var accessData = _mapper.Map<Access>(registerAccessDto);
+            var successfulReg = _accessRepository.AccessRegister(accessData);
+            return successfulReg;
+        }
+
+        public SearchResponseDto Search(DateTime dateFrom, DateTime dateTo, string? descriptionFilter, int companyBranchId)
+        {
+            if (dateTo > DateTime.Now)
+            {
+                throw new ArgumentException("Invalid date provided. The end date cannot be greater than the current date.");
+            }
+
+            if (dateTo == DateTime.MinValue)
+            {
+                dateTo = DateTime.Now;
+            }
+
+            if (dateFrom > dateTo)
+            {
+                throw new ArgumentException("Invalid dates provided. The start date cannot be greater than the end date.");
+            }
+
+            var response = _accessRepository.Search(dateFrom, dateTo, descriptionFilter, companyBranchId);
+            return response;
         }
     }
 }
