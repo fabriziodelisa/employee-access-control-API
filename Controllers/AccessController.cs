@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using personnel_access_control.Entities;
 using personnel_access_control.Models;
 using personnel_access_control.Services;
 
@@ -16,40 +15,44 @@ namespace personnel_access_control.Controllers
         }
 
         [HttpPost("AccessRegister")]
-        public ActionResult AccessRegister(RegisterAccessDto registerAccessDto) 
+        public ActionResult AccessRegister(RegisterAccessDto registerAccessDto)
         {
-            var successfulReg = _accessService.AccessRegister(registerAccessDto);
-
-            if (!successfulReg)
+            try
             {
-                return BadRequest("Error in access register");
+                _accessService.AccessRegister(registerAccessDto);
+                return Ok("Access registered successfully");
             }
-
-            return Ok("Access registered successfully");
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("Search")]
-        public ActionResult<SearchResponseDto> Search (DateTime dateFrom, DateTime dateTo, 
-                                                        string? descriptionFilter, int companyBranchId)
+        public ActionResult<SearchDto> Search(DateTime dateFrom, DateTime dateTo, string? descriptionFilter, int companyBranchId)
         {
-            //if (dateFrom > dateTo)
-            //{
-            //    return BadRequest("Invalid dates provided. The start date cannot be greater than the end date.");
-            //}
-
-            //if (dateTo > DateTime.Now)
-            //{
-            //    return BadRequest("The provided date is invalid. The end date cannot be greater than the current date.");
-            //}
             try
             {
-            var response = _accessService.Search(dateFrom, dateTo, descriptionFilter, companyBranchId);
-
-            return Ok(response);
+                var response = _accessService.Search(dateFrom, dateTo, descriptionFilter, companyBranchId);
+                return Ok(response);
             }
             catch (ArgumentException exception)
             {
 
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [HttpGet("Average")]
+        public ActionResult<AverageDto> Average(DateTime dateFrom, DateTime dateTo)
+        {
+            try
+            {
+                var response = _accessService.Average(dateFrom, dateTo);
+                return Ok(response);
+            }
+            catch (ArgumentException exception)
+            {
                 return BadRequest(exception.Message);
             }
         }
