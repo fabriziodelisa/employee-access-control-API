@@ -7,6 +7,6 @@ namespace personnel_access_control.Entities
         [Key]
         public int CompanyBranchId { get; set; }
         [Required]
-        public string Location { get; set; } = string.Empty;
+        public string Location { get; set; }
     }
 }
