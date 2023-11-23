@@ -1,7 +1,7 @@
 # Desafío Técnico BeClever
 ## API para el control de acceso del personal de la empresa Clever Business en sus tres sucursales.
 Proyecto desarrollado por Fabrizio De Lisa. Se utilizaron las tecnologias C# NET6, ENTITY FRAMEWORK, SQL SERVER.  
-Se creó una API rest bajo el patrón MVC consumible desde distintos clientes (mobile-web).  
+Se creó un microservicio API Rest consumible desde distintos clientes (mobile-web).  
 
 ### RUN:
 Ya con el repositorio clonado y la Solución abierta en Visual Studio, dirigirse a la consola del administrador de paquetes y actualizar la base de datos con el comando: **Update-Database** . Luego de la actualización compilar. Se pueden utilizar los Endpoints desde el navegador con Swagger.
